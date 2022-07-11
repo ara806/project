@@ -2,7 +2,7 @@
 <?php
 include('includes/connect.php')
 include('functions/common_function.php');
-
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +46,7 @@ include('functions/common_function.php');
           <a class="nav-link" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i><sup>1</sup></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Total Price:100/-</a>
+          <a class="nav-link" href="#">Total Price: <?php total_cart_price();?>$</a>
         </li>
         
       </ul>
@@ -59,15 +59,28 @@ include('functions/common_function.php');
     </div>
   </div>
 </nav>
+
+<!--calling cart function -->
+<?php cart(); ?>
+
 <!--second child-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
   <ul class="navbar-nav me-auto">
     <li class="nav-item">
           <a class="nav-link" href="#">Welcome Guest</a>
     </li>
-    <li class="nav-item">
-          <a class="nav-link" href="#">Login</a>
-    </li>
+    <?php 
+    if(!isset($_SESSION['username'])){
+      echo "<li class='nav-item'>
+      <a class='nav-link' href='./user_area/user_login.php'>Login</a>
+      </li>";
+    }
+    else{
+      echo "<li class='nav-item'>
+      <a class='nav-link' href='./user_area/logout.php'>Logout</a>
+      </li>";
+    }
+    ?>
   </ul>
 </nav>
 <!--third child-->
