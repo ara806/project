@@ -37,7 +37,7 @@ session_start();
           <a class="nav-link" href="display_all.php">Products</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Register</a>
+          <a class="nav-link" href="./user_area/user-registration.php">Register</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Contact</a>
@@ -67,10 +67,17 @@ session_start();
 <!--second child-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
   <ul class="navbar-nav me-auto">
-    <li class="nav-item">
-          <a class="nav-link" href="#">Welcome Guest</a>
-    </li>
-    <?php 
+    <?php
+    if(!isset($_SESSION['username'])){
+      echo "    <li class='nav-item'>
+      <a class='nav-link' href='#'>Welcome Guest</a>
+</li>";
+    }
+    else{
+      echo "<li class='nav-item'>
+      <a class='nav-link' href='#'>Welcome ".$_SESSION['username']."</a>
+      </li>";
+    } 
     if(!isset($_SESSION['username'])){
       echo "<li class='nav-item'>
       <a class='nav-link' href='./user_area/user_login.php'>Login</a>
@@ -79,7 +86,7 @@ session_start();
     else{
       echo "<li class='nav-item'>
       <a class='nav-link' href='./user_area/logout.php'>Logout</a>
-      </li>"
+      </li>";
     }
     ?>
   </ul>
