@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2022 at 06:49 PM
+-- Generation Time: Jul 15, 2022 at 05:29 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -24,6 +24,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `admin_table`
+--
+
+CREATE TABLE `admin_table` (
+  `admin_id` int(11) NOT NULL,
+  `admin_email` varchar(255) NOT NULL,
+  `admin_password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `admin_table`
+--
+
+INSERT INTO `admin_table` (`admin_id`, `admin_email`, `admin_password`) VALUES
+(1, 'admin1@gmail.com', 'ad1@123');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `brands`
 --
 
@@ -38,7 +57,8 @@ CREATE TABLE `brands` (
 
 INSERT INTO `brands` (`brand_id`, `brand_title`) VALUES
 (1, ' Zara'),
-(2, ' Nike');
+(2, ' Nike'),
+(3, 'Mavi');
 
 -- --------------------------------------------------------
 
@@ -51,6 +71,13 @@ CREATE TABLE `cart_details` (
   `ip_address` varchar(255) NOT NULL,
   `quantity` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `cart_details`
+--
+
+INSERT INTO `cart_details` (`product_id`, `ip_address`, `quantity`) VALUES
+(1, '::1', 0);
 
 -- --------------------------------------------------------
 
@@ -68,9 +95,9 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`category_id`, `category_title`) VALUES
-(1, ' 1'),
-(2, '123'),
-(3, '123');
+(1, ' Chocolate'),
+(2, ' Shoes'),
+(3, ' Clothes');
 
 -- --------------------------------------------------------
 
@@ -108,6 +135,14 @@ CREATE TABLE `products` (
   `status` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`product_id`, `product_title`, `product_description`, `product_keywords`, `category_id`, `brand_id`, `product_image1`, `product_image2`, `product_image3`, `product_price`, `date`, `status`) VALUES
+(1, 'Nike Air Max shoes', 'Very comfortable', 'Nike,Nike Air Max', 2, 2, 'Nike_shoes.jpg', 'Nike_shoes1.jpg', 'Nike_shoes2.jpg', '2000', '2022-07-15 10:18:21', 'true'),
+(2, 'Mavi jean', 'Wearing this casual jean in party, daily use', 'Mavi brand, Blue jean', 3, 3, 'Mavi_jean.jpg', 'Mavi_jean1.jpg', 'Mavi_jean2.jpg', '1500', '2022-07-15 10:31:26', 'true');
+
 -- --------------------------------------------------------
 
 --
@@ -144,6 +179,12 @@ CREATE TABLE `user_table` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `admin_table`
+--
+ALTER TABLE `admin_table`
+  ADD PRIMARY KEY (`admin_id`);
 
 --
 -- Indexes for table `brands`
@@ -192,10 +233,16 @@ ALTER TABLE `user_table`
 --
 
 --
+-- AUTO_INCREMENT for table `admin_table`
+--
+ALTER TABLE `admin_table`
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `brand_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `brand_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -213,7 +260,7 @@ ALTER TABLE `orders_pending`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user_orders`
