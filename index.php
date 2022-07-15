@@ -75,7 +75,7 @@ session_start();
     }
     else{
       echo "<li class='nav-item'>
-      <a class='nav-link' href='#'>Welcome ".$_SESSION['username']."</a>
+      <a class='nav-link' href='./user_area/profile.php'>Welcome ".$_SESSION['username']."</a>
       </li>";
     } 
     if(!isset($_SESSION['username'])){

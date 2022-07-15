@@ -1,7 +1,7 @@
 <?php
 
 // including connect file
-include('./includes/connect.php');
+include('../includes/connect.php');
 
 //getting products
 function getproducts(){
@@ -258,16 +258,40 @@ echo "<div class='col-md-4 mb-2'>
             <div class='card-body'>
               <h5 class='card-title'>$product_title</h5>
               <p class='card-text'>$product_description</p>
-              <p class='card-text'>Price:$product_price$</p>
               <a href='index.php?add_to_cart=$product_id' class='btn btn-info'>Add to cart</a>
               <a href='index.php' class='btn btn-secondary'>Go home</a>
             </div>
-  </div>
-</div>
-<div class='col-md-8'>
+            </div>
+            </div>
+            <div class='col-md-8'>
             <div class='row'>
-                <div class='col-md-12'>
-                    <h4 class='text-center text-info mb-5'>Related products</h4>
+            <h3 class='p-10'>$product_title</h3>
+            <div class='form-group'><!-- form-group Starts -->
+            <label class='col-md-5 control-label' >Product Quantity </label>
+            <div class='col-md-7' ><!-- col-md-7 Starts -->
+            <select name='product_qty' class='form-control' >
+            <option>Select quantity</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            </select>
+            </div><!-- col-md-7 Ends -->
+            </div><!-- form-group Ends -->
+            <div class='form-group' ><!-- form-group Starts -->
+            <label class='col-md-5 control-label' >Product Size</label>
+            <div class='col-md-7' ><!-- col-md-7 Starts -->
+            <select name='product_size' class='form-control' >
+            <option>Select a Size</option>
+            <option>Small</option>
+            <option>Medium</option>
+            <option>Large</option>
+            </select>
+            </div><!-- col-md-7 Ends -->
+            </div>
+            <div class='col-md-12'>
+                    <h4 class='text-center text-danger mb-5 mt-3'>Product Price: $product_price$</h4>
                 </div>
                 <div class='col-md-6'>
                 <img src='./admin_area/product_images/$product_image2' 
@@ -277,6 +301,7 @@ echo "<div class='col-md-4 mb-2'>
                 <img src='./admin_area/product_images/$product_image3' 
                 class='card-img-top' alt='$product_title'>   
                 </div>
+                
             </div>
         </div>";
 }
@@ -310,7 +335,7 @@ echo "<div class='col-md-4 mb-2'>
         global $con;
         $ip = getIPAddress(); 
         $get_product_id=$_GET['add_to_cart'];
-        $select_query="Select * from 'cart_details' where ip_address='$ip' and product_id=$get_product_id"
+        $select_query = "select * from cart_details where ip_address='$ip' AND product_id='$get_product_id'";
         $result_query=mysqli_query($con,$select_query);
         $num_of_rows=mysqli_num_rows($result_query);
         if($num_of_rows>0){
@@ -318,7 +343,7 @@ echo "<div class='col-md-4 mb-2'>
           echo "<script>window.open('index.php','_self')</script>";
         }
         else{
-          $insert_query="insert into 'cart_details' (product_id, ip address , quantity) values ($get_product_id,'$ip',0)";
+          $insert_query = "insert into cart_details (product_id,ip_address,quantity) values ('$get_product_id','$ip',0)";
           $result_query=mysqli_query($con,$insert_query);
           echo "<script>alert('Item is added to the cart')</script>";
           echo "<script>window.open('index.php','_self')</script>";
@@ -327,16 +352,17 @@ echo "<div class='col-md-4 mb-2'>
     }
 
     //function to get cart item numbers
-    function cart(){
+    function cart_item(){
       if(isset($_GET['add_to_cart'])){
         global $con;
         $ip = getIPAddress(); 
         $get_product_id=$_GET['add_to_cart'];
-        $select_query="Select * from 'cart_details' where ip_address='$ip'"
+        $select_query = "select * from cart_details where ip_address='$ip'";
         $result_query=mysqli_query($con,$select_query);
         $count_cart_items=mysqli_num_rows($result_query);
+        echo $count_cart_items;
       }
-      else{
+      /*else{
         global $con;
         $ip = getIPAddress(); 
         $get_product_id=$_GET['add_to_cart'];
@@ -344,19 +370,18 @@ echo "<div class='col-md-4 mb-2'>
         $result_query=mysqli_query($con,$select_query);
         $count_cart_items=mysqli_query($con,$result_query);
       }
-      echo $count_cart_items;
+      echo $count_cart_items;*/
     }
-
     //total price function
     function total_cart_price(){
       global $con;
       $ip = getIPAddress();
       $total_price=0;
-      $cart_query="Select * from 'cart_details' where ip_address='$ip'";
+      $cart_query = "select * from cart_details where ip_address='$ip'";
       $result=mysqli_query($con,$cart_query);
       while($row=mysqli_fetch_array($result)){
         $product_id=$row['product_id'];
-        $select_products="Select * from 'products' where product_id='$product_id'";
+        $select_products = "select * from products where product_id='$product_id'";
         $result_products=mysqli_query($con,$select_products);
         while($row_product_price=mysqli_fetch_array($result_products)){
           $product_price=array($row_product_price['product_price']);
@@ -366,19 +391,18 @@ echo "<div class='col-md-4 mb-2'>
       }
       echo $total_price;
     }
-
     //get user order details
     function get_user_order_details(){
       global $con;
       $username=$_SESSION['username'];
-      $get_details="Select * from 'user_table' where username=$username";
+      $get_details="select * from user_table where username='$username'";
       $result_query=mysqli_query($con,$get_details);
-      while($row_query==mysqli_fetch_array($result_query)){
+      while($row_query=mysqli_fetch_array($result_query)){
         $user_id=$row_query['user_id'];
         if(!isset($_GET['edit_account'])){
           if(!isset($_GET['my_orders'])){
             if(!isset($_GET['delete account'])){
-              $get_orders="Select * from 'user_orders' where user_id=$user_id and order_status='pending'";
+              $get_orders = "select * from user_orders where user_id='$user_id' AND order_status='pending'";
               $result_orders_query=mysqli_query($con,$get_orders);
               $row_count=mysqli_num_rows($result_orders_query);
               if($row_count>0){

@@ -1,5 +1,7 @@
-<?php include('../includes/connect.php');
-session_start(); 
+<?php
+include('../includes/connect.php');
+include('../functions/common_function.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +24,13 @@ session_start();
         .footer{
             position:absolute;
             bottom:0;
+        }
+        .body{
+            overflow-x: hidden;
+        }
+        .product_img{
+            width:100px;
+            object-fit:contain;
         }
     </style>
 </head>
@@ -59,7 +68,7 @@ session_start();
                 <div class="button text-center">
                     <button class="my-3"><a href="insert_product.php"
                     class="nav-link text-light bg-info my-1">Insert Products</a></button>
-                    <button><a href="" class="nav-link text-light bg-info my-1">View Products</a></button>
+                    <button><a href="index.php?view_products" class="nav-link text-light bg-info my-1">View Products</a></button>
                     <button><a href="index.php?insert_category" class="nav-link text-light bg-info my-1">Insert Categories</a></button>
                     <button><a href="" class="nav-link text-light bg-info my-1">View Categories</a></button>
                     <button><a href="index.php?insert_brand" class="nav-link text-light bg-info my-1">Insert Brands</a></button>
@@ -71,10 +80,7 @@ session_start();
                 </div>
             </div>
         </div>
-        <!-- last child -->
-        <div class="bg-info p-3 text-center footer">
-             <p>All rights reserved 0- Designed in 2022</p>
-        </div>
+    </div>
 
     </div>
 
@@ -90,8 +96,19 @@ session_start();
     if(isset($_GET['insert_brand'])){
         include('insert_brands.php');
     }
+    //include view_products in index page
+    if(isset($_GET['view_products'])){
+        include('view_products.php');
+    }
+    //include edit_products in index page
+    if(isset($_GET['edit_products'])){
+        include('edit_products.php');
+    }
     ?>
 </div>
+<!-- last child -->
+<?php
+        include("../includes/footer.php") ?> 
     
 <!--bootstrap js link-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>

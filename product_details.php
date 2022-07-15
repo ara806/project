@@ -1,6 +1,6 @@
 <!-- connect file -->
 <?php
-include('includes/connect.php')
+include('includes/connect.php');
 include('functions/common_function.php');
 session_start();
 ?>
@@ -37,13 +37,13 @@ session_start();
           <a class="nav-link" href="display_all.php">Products</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Register</a>
+          <a class="nav-link" href="./user_area/user-registration.php">Register</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Contact</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i><sup>1</sup></a>
+          <a class="nav-link" href="cart.php"><i class="fa fa-shopping-cart" aria-hidden="true"></i><sup>1</sup></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Total Price: <?php total_cart_price();?>$</a>
@@ -78,20 +78,15 @@ session_start();
           </li>";
         } 
         if(!isset($_SESSION['username'])){
-          echo "<li class='nav-item'>
-          <a class='nav-link' href='./user_area/user_login.php'>Login</a>
-          </li>";
+        echo "<li class='nav-item'>
+        <a class='nav-link' href='./user_area/user_login.php'>Login</a>
+        </li>";
         }
-    if(!isset($_SESSION['username'])){
-      echo "<li class='nav-item'>
-      <a class='nav-link' href='./user_area/user_login.php'>Login</a>
-      </li>";
-    }
-    else{
-      echo "<li class='nav-item'>
-      <a class='nav-link' href='./user_area/logout.php'>Logout</a>
-      </li>";
-    }
+        else{
+        echo "<li class='nav-item'>
+        <a class='nav-link' href='./user_area/logout.php'>Logout</a>
+        </li>";
+        }
     ?>
   </ul>
 </nav>
@@ -117,6 +112,32 @@ session_start();
 get_unique_categories();
 get_unique_brands();
     ?>
+    <div class="col-md-3 col-sm-6"><!-- col-md-3 col-sm-6 Starts -->
+<div class="box same-height headline"><!-- box same-height headline Starts -->
+<h3 class="text-center mt-5"> You may also like these Products:  </h3>
+</div><!-- box same-height headline Ends -->
+</div><!-- col-md-3 col-sm-6 Ends -->
+<?php
+$get_products = "select * from products order by rand() LIMIT 0,3";
+$run_products = mysqli_query($con,$get_products);
+while($row_products = mysqli_fetch_array($run_products)) {
+$pro_id = $row_products['product_id'];
+$pro_title = $row_products['product_title'];
+$pro_img1 = $row_products['product_image1'];
+echo "<div class='col-md-3 col-sm-6 center-responsive mt-5' >
+      <div class='product' >
+      <img src='admin_area/product_images/$pro_img1' class='img-responsive card-img-top' >
+      </a>
+      <div class='text' >
+      <hr>
+
+      <h3><a href='index.php?product_id=$pro_id' >$pro_title</a></h3>
+      <p class='buttons' ><a href='index.php?product_id=$pro_id' class='btn btn-default' >View Details</a></p>
+      </div>
+      </div>
+      </div>";
+}
+?>
 <!-- row end -->
 </div>
 <!-- col end -->

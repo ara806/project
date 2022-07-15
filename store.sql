@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2022 at 05:29 PM
+-- Generation Time: Jul 15, 2022 at 11:20 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -69,15 +69,18 @@ INSERT INTO `brands` (`brand_id`, `brand_title`) VALUES
 CREATE TABLE `cart_details` (
   `product_id` int(11) NOT NULL,
   `ip_address` varchar(255) NOT NULL,
-  `quantity` int(100) NOT NULL
+  `quantity` int(100) NOT NULL,
+  `size` varchar(100) NOT NULL,
+  `product_price` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `cart_details`
 --
 
-INSERT INTO `cart_details` (`product_id`, `ip_address`, `quantity`) VALUES
-(1, '::1', 0);
+INSERT INTO `cart_details` (`product_id`, `ip_address`, `quantity`, `size`, `product_price`) VALUES
+(1, '127.0.0.1', 0, 'Select a Size', 2000),
+(2, '127.0.0.1', 0, '', 0);
 
 -- --------------------------------------------------------
 
@@ -177,6 +180,13 @@ CREATE TABLE `user_table` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `user_table`
+--
+
+INSERT INTO `user_table` (`user_id`, `username`, `user_email`, `user_password`, `user_image`, `user_ip`, `user_address`, `user_mobile`) VALUES
+(1, 'user1', 'user1@gmail.com', 'user123@', '', '', 'shiraz', '09123456789');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -272,7 +282,7 @@ ALTER TABLE `user_orders`
 -- AUTO_INCREMENT for table `user_table`
 --
 ALTER TABLE `user_table`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

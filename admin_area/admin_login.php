@@ -8,7 +8,7 @@ include('../functions/common_function.php');
     <meta charset="UTF-8">
     <meta http-eqiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial=scale=1.0">
-    <title>User Login</title>
+    <title>Admin Login</title>
     <!-- bootstrap css link-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!-- font awsome link -->
@@ -27,7 +27,7 @@ include('../functions/common_function.php');
 
 <center>
 
-<h1>Login</h1>
+<h1>Admin Login</h1>
 
 
 </center>
@@ -37,13 +37,13 @@ include('../functions/common_function.php');
 
 </div><!-- box-header Ends -->
 
-<form action="checkout.php" method="post" ><!--form Starts -->
+<form action="index.php" method="post" ><!--form Starts -->
 
 <div class="form-group" ><!-- form-group Starts -->
 
-<label>Username</label>
+<label>Email</label>
 
-<input type="text" class="form-control" name="c_name" required >
+<input type="text" class="form-control" name="c_email" required >
 
 </div><!-- form-group Ends -->
 
@@ -67,44 +67,28 @@ include('../functions/common_function.php');
 
 </div><!-- text-center Ends -->
 </form><!--form Ends -->
-
-<center><!-- center Starts -->
-<p class="small fw-bold mt-2 pt-1">Don't have an account? <a href="user-registration.php" 
- class="text-danger"> Register</a></p>
- <p class="small fw-bold mt-2 pt-1"> <a href="../admin_area/admin_login.php" 
- class="text-danger"> Admin Login</a></p>
-</center><!-- center Ends -->
 </div><!-- box Ends -->
 
 <?php
 
 if(isset($_POST['login'])){
-$customer_username = $_POST['c_name'];
-$customer_pass = $_POST['c_pass'];
+$admin_email = $_POST['c_email'];
+$admin_pass = $_POST['c_pass'];
 
-$select_customer = "select * from user_table where username='$customer_username' AND user_password='$customer_pass'";
-$run_customer = mysqli_query($con,$select_customer);
-$get_ip = getIPAddress();
-$check_customer = mysqli_num_rows($run_customer);
+$select_admin = "select * from admin_table where admin_email='$admin_email' AND admin_password='$admin_pass'";
+$run_admin = mysqli_query($con,$select_admin);
+$check_admin = mysqli_num_rows($run_admin);
 
-$select_cart = "select * from cart_details where ip_address='$get_ip'";
-$run_cart = mysqli_query($con,$select_cart);
-$check_cart = mysqli_num_rows($run_cart);
-if($check_customer==0){
-echo "<script>alert('username or password is incorrect!')</script>";
+if($check_admin==0){
+echo "<script>alert('email or password is incorrect!')</script>";
 exit();
 }
 
-if($check_customer==1 AND $check_cart==0){
-$_SESSION['username']=$customer_username;
+if($check_admin==1){
+$_SESSION['admin_email']=$admin_email;
 echo "<script>alert('You are Logged In')</script>";
-echo "<script>window.open('../index.php','_self')</script>";
+echo "<script>window.open('index.php','_self')</script>";
 }
-else {
-$_SESSION['username']=$customer_username;
-echo "<script>alert('You are Logged In')</script>";
-echo "<script>window.open('checkout.php','_self')</script>";
-} 
 }
 
 ?>

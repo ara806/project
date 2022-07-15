@@ -64,6 +64,16 @@ session_start();
   <ul class="navbar-nav me-auto">
   
     <?php 
+    if(!isset($_SESSION['username'])){
+      echo "    <li class='nav-item'>
+      <a class='nav-link' href='#'>Welcome Guest</a>
+</li>";
+    }
+    else{
+      echo "<li class='nav-item'>
+      <a class='nav-link' href='./user_area/profile.php'>Welcome ".$_SESSION['username']."</a>
+      </li>";
+    }
      if(!isset($_SESSION['username'])){
        echo "<li class='nav-item'>
        <a class='nav-link' href='./user_login.php'>Login</a>
@@ -74,16 +84,6 @@ session_start();
        <a class='nav-link' href='logout.php'>Logout</a>
        </li>";
      }
-    if(!isset($_SESSION['username'])){
-      echo "<li class='nav-item'>
-      <a class='nav-link' href='./user_login.php'>Login</a>
-      </li>";
-    }
-    else{
-      echo "<li class='nav-item'>
-      <a class='nav-link' href='logout.php'>Logout</a>
-      </li>";
-    }
     ?>
   </ul>
 </nav>

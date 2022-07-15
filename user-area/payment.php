@@ -1,5 +1,5 @@
 <?php include('../includes/connect.php');
-include('../functions/commonfunctions.php');
+include('../functions/common_function.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,10 +22,11 @@ include('../functions/commonfunctions.php');
     <!--access user-id-->
     <?php
         $user_ip=getIPAddress();
-        $get_user="Select * from 'user_table' where user_ip='$user_ip'";
+        $get_user = "select * from user_table where user_ip='$user_ip'";
         $result=mysqli_query($con,$get_user);
-        $run_query=mysqli_fetch_query($result);
+        $run_query=mysqli_fetch_array($result);
         $user_id=$run_query['user_id'];
+    ?>
 
     <div class="container">
         <h2 class="text-center text-info">Payment Options</h2>
