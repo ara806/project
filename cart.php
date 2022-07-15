@@ -107,11 +107,11 @@ session_start();
 
 $ip = getIPAddress();
 $total_price=0;
-$cart_query="Select * from 'cart_details' where ip_address='$ip'";
+$cart_query="Select * from `cart_details` where ip_address='$ip'";
 $result=mysqli_query($con,$cart_query);
 $result_count=mysqli_num_rows($result);
 if($result_count>0){
-  echo"<thead>
+  echo "<thead>
   <tr>
       <th>Product Title</th>
       <th>Product Image</th>
@@ -124,7 +124,7 @@ if($result_count>0){
 <tbody>";
 while($row=mysqli_fetch_array($result)){
   $product_id=$row['product_id'];
-  $select_products="Select * from `products where product_id='$product_id'";
+  $select_products="Select * from `products` where product_id='$product_id'";
   $result_products=mysqli_query($con,$select_products);
   while($row_product_price=mysqli_fetch_array($result_products)){
 $product_price=array($row_product_price['product_price']);
@@ -150,7 +150,7 @@ if(isset($_POST['update_cart'])){
 
                     ?>
                     <td><?php echo $price_table?>/-</td>
-                    <td><input type="checkbox" name="removeitem[]" value="<?php echo $product_id?>></td>
+                    <td><input type="checkbox" name="removeitem[]" value="<?php echo $product_id ?>"></td>
                     <td>
                         <!-- <button class="bg-info px-3 py-2 border-0 mx-3">Update</button> -->
                         <input type="submit" value="Update Cart" class="bg-info px-3 py-2 
@@ -170,12 +170,11 @@ else{
         <div class="d-flex mb-5">
           <?php 
           $ip = getIPAddress();
-          $cart_query="Select * from 'cart_details' where ip_address='$ip'";
+          $cart_query="Select * from `cart_details` where ip_address='$ip'";
           $result=mysqli_query($con,$cart_query);
           $result_count=mysqli_num_rows($result);
           if($result_count>0){
-            echo "<h4 class='px-3'>Subtotal:<strong class='text-info'>< 
-            echo $total_price$</strong></h4>
+            echo "<h4 class='px-3'>Subtotal:<strong class='text-info'>$total_price$</strong></h4>
             <input type='submit' value=Continue Shopping class='bg-info px-3 py-2 
                         border-0 mx-3' name='continue_shopping'>
             <button class='bg-secondary p-3 py-2 border-0 
@@ -202,7 +201,7 @@ function remove_cart_item(){
   if(isset($_POST['remove_cart'])){
     foreach($_POST['removeitem'] as $remove_id){
       echo $remove_id;
-      $delete_query="Delete from 'cart_details' where product_id=$remove_id";
+      $delete_query="Delete from `cart_details` where product_id=$remove_id";
       $run_delete=mysqli_query($con,$delete_query);
       if($run_delete){
         echo "<script>window.open('cart.php','_self')</script>";
