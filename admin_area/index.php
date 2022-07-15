@@ -1,3 +1,6 @@
+<?php include('../includes/connect.php');
+session_start(); 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,9 +34,12 @@
                 <img src="../images/logo.png" alt="" class="logo">
                 <nav class="navbar navbar-expand-lg">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a href="" class="nav-link">Welcome Guest</a>
-                        </li>
+                        <?php 
+                        echo "<li class='nav-item'>
+                       <a class='nav-link' href='#'>Welcome Admin </a>
+                       </li>";
+     
+                    ?>
                     </ul>
                 </nav>
             </div>
@@ -52,7 +58,7 @@
                 <!--button*10>a.nav-link.text-light.bg-info.my-1-->
                 <div class="button text-center">
                     <button class="my-3"><a href="insert_product.php"
-                    <button><a href="" class="nav-link text-light bg-info my-1">Insert Products</a></button>
+                    class="nav-link text-light bg-info my-1">Insert Products</a></button>
                     <button><a href="" class="nav-link text-light bg-info my-1">View Products</a></button>
                     <button><a href="index.php?insert_category" class="nav-link text-light bg-info my-1">Insert Categories</a></button>
                     <button><a href="" class="nav-link text-light bg-info my-1">View Categories</a></button>
@@ -61,13 +67,13 @@
                     <button><a href="" class="nav-link text-light bg-info my-1">All orders</a></button>
                     <button><a href="" class="nav-link text-light bg-info my-1">All payments</a></button>
                     <button><a href="" class="nav-link text-light bg-info my-1">List of Users</a></button>
-                    <button><a href="" class="nav-link text-light bg-info my-1">Logout</a></button>
+                    <button><a href="../index.php"class="nav-link text-light bg-info my-1">Logout</a></button>
                 </div>
             </div>
         </div>
         <!-- last child -->
         <div class="bg-info p-3 text-center footer">
-             <p>All rights reserved 0- Designed by Circle-2022</p>
+             <p>All rights reserved 0- Designed in 2022</p>
         </div>
 
     </div>
